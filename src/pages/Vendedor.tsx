@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
+import React, { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import { VendedorCard } from "../components/VendedorCard";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { CreateEntityDialog } from "../components/CreateEntityDialog";
 
 export function Vendedor() {
   const [vendedores, setVendedores] = useState([]);
+  const [newVendedor, setNewVendedor] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    meta: 0,
+  });
 
   type vendedor = {
     id: number;
@@ -13,6 +18,20 @@ export function Vendedor() {
     email: string;
     meta: number;
   };
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.id === "meta") {
+      setNewVendedor((prevState) => ({
+        ...prevState,
+        [e.target.id]: Number(e.target.value),
+      }));
+      return;
+    }
+    setNewVendedor((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
 
   async function getVendedores() {
     try {
@@ -23,30 +42,76 @@ export function Vendedor() {
     }
   }
 
+  async function addVendedor(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      console.log(newVendedor);
+      await api.post("/vendedor", newVendedor, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      getVendedores();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
     getVendedores();
   }, []);
 
   return (
-    <main>
-      <Dialog.Root>
-        <Dialog.Trigger className="ml-[2.5%] mb-4">
-          <button className="flex items-center gap-2 px-4 py-2 ml text-white bg-purple-950 rounded-lg shadow-md">
-            Adicionar Vendedor
-            <PlusIcon />
-          </button>
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-slate-900 opacity-50" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <form className="bg-white flex flex-col p-6 rounded-sm">
-              <label htmlFor="nome">Nome</label>
-              <input name="nome" id="nome" type="text" />
-            </form>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <div className="flex flex-col gap-6 items-center">
+    <main className="ml-[2.5%]">
+      <CreateEntityDialog addEntity={addVendedor} entity="vendedor">
+        <label className="mb-1" htmlFor="nome">
+          Nome
+        </label>
+        <input
+          className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
+          name="nome"
+          id="nome"
+          type="text"
+          onChange={handleChange}
+        />
+        <label className="mb-1" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
+          name="email"
+          id="email"
+          type="email"
+          onChange={handleChange}
+        />
+        <label className="mb-1" htmlFor="senha">
+          Senha
+        </label>
+        <input
+          className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
+          name="senha"
+          id="senha"
+          type="password"
+          onChange={handleChange}
+        />
+        <label className="mb-1" htmlFor="meta">
+          Meta
+        </label>
+        <input
+          className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
+          name="meta"
+          id="meta"
+          type="number"
+          onChange={handleChange}
+        />
+        <button
+          className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4"
+          type="submit"
+        >
+          Salvar Vendedor
+        </button>
+      </CreateEntityDialog>
+      <div className="flex flex-wrap gap-6 items-center">
         {vendedores.length > 0 ? (
           vendedores.map((vendedor: vendedor) => (
             <VendedorCard

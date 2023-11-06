@@ -46,11 +46,7 @@ export function Vendedor() {
     e.preventDefault();
     try {
       console.log(newVendedor);
-      await api.post("/vendedor", newVendedor, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.post("/vendedor", newVendedor);
       getVendedores();
     } catch (e) {
       console.log(e);
@@ -62,7 +58,7 @@ export function Vendedor() {
   }, []);
 
   return (
-    <main className="ml-[2.5%]">
+    <main className="mx-[2.5%] mb-6">
       <CreateEntityDialog addEntity={addVendedor} entity="vendedor">
         <label className="mb-1" htmlFor="nome">
           Nome
@@ -95,7 +91,7 @@ export function Vendedor() {
           onChange={handleChange}
         />
         <label className="mb-1" htmlFor="meta">
-          Meta
+          Meta de ligações
         </label>
         <input
           className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
@@ -105,7 +101,7 @@ export function Vendedor() {
           onChange={handleChange}
         />
         <button
-          className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4"
+          className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4 transition duration-200 ease-in-out hover:text-purple-700 hover:bg-white hover:outline hover:outline-2 outline-purple-700"
           type="submit"
         >
           Salvar Vendedor

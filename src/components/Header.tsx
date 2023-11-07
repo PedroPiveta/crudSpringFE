@@ -18,7 +18,7 @@ export function Header() {
           to="/clientes"
         >
           <BsFillPeopleFill />
-          Cliente
+          Clientes
         </Link>
       </nav>
     </header>

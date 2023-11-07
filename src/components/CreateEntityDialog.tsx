@@ -36,6 +36,12 @@ export function CreateEntityDialog({
             className="bg-slate-100 flex flex-col p-6 rounded-sm"
           >
             {children}
+            <button
+              type="submit"
+              className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4 transition duration-200 ease-in-out hover:text-purple-700 hover:bg-white hover:outline hover:outline-2 outline-purple-700"
+            >
+              Salvar {entity}
+            </button>
           </form>
         </Dialog.Content>
       </Dialog.Portal>

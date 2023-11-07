@@ -100,12 +100,6 @@ export function Vendedor() {
           type="number"
           onChange={handleChange}
         />
-        <button
-          className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4 transition duration-200 ease-in-out hover:text-purple-700 hover:bg-white hover:outline hover:outline-2 outline-purple-700"
-          type="submit"
-        >
-          Salvar Vendedor
-        </button>
       </CreateEntityDialog>
       <div className="flex flex-wrap gap-6 items-center">
         {vendedores.length > 0 ? (

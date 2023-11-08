@@ -33,7 +33,7 @@ export function CreateEntityDialog({
               addEntity(e);
               setOpen(!open);
             }}
-            className="bg-slate-100 flex flex-col p-6 rounded-sm"
+            className="bg-slate-100 flex flex-col p-6 rounded-sm shadow-md"
           >
             {children}
             <button

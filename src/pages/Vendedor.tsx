@@ -110,6 +110,7 @@ export function Vendedor() {
               nome={vendedor.nome}
               email={vendedor.email}
               meta={vendedor.meta}
+              handleGet={getVendedores}
             />
           ))
         ) : (

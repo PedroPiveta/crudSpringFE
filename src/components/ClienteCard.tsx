@@ -1,14 +1,16 @@
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { Pencil1Icon } from "@radix-ui/react-icons";
+import { DeleteEntityDialog } from "./DeleteEntityDialog";
 
-type clienteProps = {
+type clienteCardProps = {
   id: number;
   nome: string;
   email: string;
   telefone: string;
   cpf: string;
+  handleGet: () => void;
 };
 
-export function ClienteCard(props: clienteProps) {
+export function ClienteCard(props: clienteCardProps) {
   return (
     <div className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md">
       <div className="flex flex-col gap-4 ">
@@ -19,7 +21,11 @@ export function ClienteCard(props: clienteProps) {
       </div>
       <div className="flex flex-col justify-center gap-6">
         <Pencil1Icon className="w-full h-7 cursor-pointer hover:text-purple-600" />
-        <TrashIcon className="w-full h-7 cursor-pointer hover:text-red-700" />
+        <DeleteEntityDialog
+          handleGet={props.handleGet}
+          id={props.id}
+          entity="cliente"
+        />
       </div>
     </div>
   );

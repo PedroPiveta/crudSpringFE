@@ -106,6 +106,7 @@ export function Cliente() {
             email={cliente.email}
             telefone={cliente.telefone}
             cpf={cliente.cpf}
+            handleGet={getClientes}
           />
         ))}
       </div>

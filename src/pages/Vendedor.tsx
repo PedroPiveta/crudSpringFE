@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import { VendedorCard } from "../components/VendedorCard";
 import { CreateEntityDialog } from "../components/CreateEntityDialog";
+import { vendedor } from "../types/EntityTypes";
 
 export function Vendedor() {
   const [vendedores, setVendedores] = useState([]);
@@ -11,13 +12,6 @@ export function Vendedor() {
     senha: "",
     meta: 0,
   });
-
-  type vendedor = {
-    id: number;
-    nome: string;
-    email: string;
-    meta: number;
-  };
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.id === "meta") {
@@ -106,15 +100,12 @@ export function Vendedor() {
           vendedores.map((vendedor: vendedor) => (
             <VendedorCard
               key={vendedor.id}
-              id={vendedor.id}
-              nome={vendedor.nome}
-              email={vendedor.email}
-              meta={vendedor.meta}
+              vendedor={vendedor}
               handleGet={getVendedores}
             />
           ))
         ) : (
-          <p>Nenhum vendedor encontrado</p>
+          <p>Nenhum vendedor cadastrado</p>
         )}
       </div>
     </main>

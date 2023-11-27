@@ -2,25 +2,17 @@ import { useEffect, useState } from "react";
 import { CreateEntityDialog } from "../components/CreateEntityDialog";
 import { api } from "../lib/axios";
 import { ClienteCard } from "../components/ClienteCard";
+import { cliente } from "../types/EntityTypes";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Cliente() {
-  const [clientes, setClientes] = useState<clientes | null>(null);
+  const [clientes, setClientes] = useState<cliente[] | []>([]);
   const [newCliente, setNewCliente] = useState({
     nome: "",
     email: "",
     telefone: "",
     cpf: "",
   });
-
-  type clientes = [
-    {
-      id: number;
-      nome: string;
-      email: string;
-      telefone: string;
-      cpf: string;
-    }
-  ];
 
   async function getClientes() {
     try {
@@ -97,19 +89,21 @@ export function Cliente() {
           onChange={handleChange}
         />
       </CreateEntityDialog>
-      <div className="flex flex-wrap gap-6 items-center">
-        {clientes?.map((cliente) => (
-          <ClienteCard
-            key={cliente.id}
-            id={cliente.id}
-            nome={cliente.nome}
-            email={cliente.email}
-            telefone={cliente.telefone}
-            cpf={cliente.cpf}
-            handleGet={getClientes}
-          />
-        ))}
-      </div>
+      <motion.div className="flex flex-wrap gap-6 items-center transition-all">
+        <AnimatePresence mode="popLayout">
+          {clientes.length > 0 ? (
+            clientes?.map((cliente: cliente) => (
+              <ClienteCard
+                key={cliente.id}
+                cliente={cliente}
+                handleGet={getClientes}
+              />
+            ))
+          ) : (
+            <p>Nenhum cliente cadastrado</p>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </main>
   );
 }

@@ -1,36 +1,34 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
-type CreateEntityDialogProps = {
+type EditEntityFormProps = {
   children: React.ReactNode;
-  entity: string;
-  addEntity: (e: React.FormEvent<HTMLFormElement>) => void;
+  entityName: string;
+  editEntity: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export function CreateEntityDialog({
+export function EditEntityForm({
   children,
-  entity,
-  addEntity,
-}: CreateEntityDialogProps) {
+  entityName,
+  editEntity,
+}: EditEntityFormProps) {
   const [open, setOpen] = useState(false);
+
   return (
     <Dialog.Root open={open}>
-      <Dialog.Trigger asChild className="mb-4" onClick={() => setOpen(!open)}>
-        <button className="flex items-center gap-2 px-4 py-2 text-white bg-purple-950 rounded-lg shadow-md transition duration-200 ease-in-out hover:text-purple-700 hover:bg-white hover:outline hover:outline-2 outline-purple-700">
-          Adicionar {entity}
-          <PlusIcon />
-        </button>
+      <Dialog.Trigger onClick={() => setOpen(!open)}>
+        <Pencil1Icon className="w-full h-7 cursor-pointer hover:text-purple-600" />
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay
           onClick={() => setOpen(!open)}
-          className="fixed inset-0 bg-slate-900 opacity-50 DialogOverlay"
+          className="DialogOverlay fixed inset-0 bg-slate-900 opacity-50"
         />
-        <Dialog.Content className="DialogContent  fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ">
+        <Dialog.Content className="DialogContent fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <form
             onSubmit={(e) => {
-              addEntity(e);
+              editEntity(e);
               setOpen(!open);
             }}
             className="bg-slate-100 flex flex-col p-6 rounded-sm shadow-md"
@@ -40,7 +38,7 @@ export function CreateEntityDialog({
               type="submit"
               className="bg-purple-950 p-2 text-white font-semibold rounded-sm shadow-md mt-4 transition duration-200 ease-in-out hover:text-purple-700 hover:bg-white hover:outline hover:outline-2 outline-purple-700"
             >
-              Salvar {entity}
+              Salvar {entityName}
             </button>
           </form>
         </Dialog.Content>

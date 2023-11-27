@@ -15,7 +15,9 @@ export function DeleteEntityDialog({
 }: DeleteEntityDialogProps) {
   async function handleDelete() {
     await api.delete(`/${entity}/${id}`);
-    await handleGet();
+    setTimeout(() => {
+      handleGet();
+    }, 300);
   }
   return (
     <AlertDialog.Root>
@@ -23,8 +25,8 @@ export function DeleteEntityDialog({
         <TrashIcon className="w-full h-7 cursor-pointer hover:text-red-700" />
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 bg-slate-900 opacity-50" />
-        <AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col shadow-md bg-slate-100 rounded-sm p-8 h-52 justify-between ">
+        <AlertDialog.Overlay className="DialogOverlay fixed inset-0 bg-slate-900 opacity-50" />
+        <AlertDialog.Content className="DialogContent fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col shadow-md bg-slate-100 rounded-sm p-8 h-52 justify-between ">
           <AlertDialog.Title className="text-lg font-semibold">
             Você tem certeza que deseja excluir este {entity}?
           </AlertDialog.Title>

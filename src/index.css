@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes growIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes growOut {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+}
+
+.DialogOverlay[data-state="open"] {
+  animation: fadeIn 300ms ease-out;
+}
+.DialogContent[data-state="open"] {
+  animation: growIn 350ms ease-in-out;
+}
+
+.DialogOverlay[data-state="closed"] {
+  animation: fadeOut 300ms ease-in;
+}
+.DialogContent[data-state="closed"] {
+  animation: growOut 300ms ease-in;
+}

@@ -7,13 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { container } from "../lib/framerMotion";
 
 export function Cliente() {
-  const [clientes, setClientes] = useState<cliente[] | []>([]);
-  const [newCliente, setNewCliente] = useState({
-    nome: "",
-    email: "",
-    telefone: "",
-    cpf: "",
-  });
+  const [clientes, setClientes] = useState<cliente[]>([]);
+  const [newCliente, setNewCliente] = useState<cliente | object>({});
 
   async function getClientes() {
     try {

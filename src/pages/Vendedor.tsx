@@ -8,13 +8,8 @@ import { vendedor } from "../types/EntityTypes";
 import { container } from "../lib/framerMotion";
 
 export function Vendedor() {
-  const [vendedores, setVendedores] = useState([]);
-  const [newVendedor, setNewVendedor] = useState({
-    nome: "",
-    email: "",
-    senha: "",
-    meta: 0,
-  });
+  const [vendedores, setVendedores] = useState<vendedor[]>([]);
+  const [newVendedor, setNewVendedor] = useState<vendedor | object>({});
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.id === "meta") {

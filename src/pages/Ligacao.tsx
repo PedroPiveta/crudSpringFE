@@ -7,12 +7,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { container } from "../lib/framerMotion";
 
 export function Ligacao() {
-  const [ligacoes, setLigacoes] = useState([]);
-  const [newLigacao, setNewLigacao] = useState({
-    horario: "",
-    duracao: 0,
-    descricao: "",
-  });
+  const [ligacoes, setLigacoes] = useState<ligacao[]>([]);
+  const [newLigacao, setNewLigacao] = useState<ligacao | object>({});
 
   async function getLigacoes() {
     try {

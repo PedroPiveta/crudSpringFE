@@ -1,6 +1,8 @@
 import { DeleteEntityDialog } from "./DeleteEntityDialog";
 import { EditEntityForm } from "./EditEntityForm";
 import { ligacao } from "../types/EntityTypes";
+import { motion } from "framer-motion";
+import { item } from "../lib/framerMotion";
 
 type LigacaoCardProps = {
   ligacao: ligacao;
@@ -9,7 +11,11 @@ type LigacaoCardProps = {
 
 export function LigacaoCard(props: LigacaoCardProps) {
   return (
-    <div className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md">
+    <motion.div
+      className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md"
+      layout
+      variants={item}
+    >
       <div className="flex flex-col gap-4 ">
         <p className="text-lg font-bold text-slate-900">
           {props.ligacao.horario.toString()}
@@ -25,6 +31,6 @@ export function LigacaoCard(props: LigacaoCardProps) {
           entity="ligacao"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

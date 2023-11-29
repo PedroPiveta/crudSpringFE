@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import { VendedorCard } from "../components/VendedorCard";
 import { CreateEntityDialog } from "../components/CreateEntityDialog";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { vendedor } from "../types/EntityTypes";
+import { container } from "../lib/framerMotion";
 
 export function Vendedor() {
   const [vendedores, setVendedores] = useState([]);
@@ -95,19 +98,27 @@ export function Vendedor() {
           onChange={handleChange}
         />
       </CreateEntityDialog>
-      <div className="flex flex-wrap gap-6 items-center">
+      <AnimatePresence mode="popLayout">
         {vendedores.length > 0 ? (
-          vendedores.map((vendedor: vendedor) => (
-            <VendedorCard
-              key={vendedor.id}
-              vendedor={vendedor}
-              handleGet={getVendedores}
-            />
-          ))
+          <motion.div
+            className="flex flex-wrap gap-6 items-center"
+            variants={container}
+            initial="hidden"
+            animate="show"
+            exit="vanish"
+          >
+            {vendedores.map((vendedor: vendedor) => (
+              <VendedorCard
+                key={vendedor.id}
+                vendedor={vendedor}
+                handleGet={getVendedores}
+              />
+            ))}
+          </motion.div>
         ) : (
           <p>Nenhum vendedor cadastrado</p>
         )}
-      </div>
+      </AnimatePresence>
     </main>
   );
 }

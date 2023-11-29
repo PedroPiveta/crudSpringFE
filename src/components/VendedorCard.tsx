@@ -1,6 +1,8 @@
 import { DeleteEntityDialog } from "./DeleteEntityDialog";
 import { EditEntityForm } from "./EditEntityForm";
 import { vendedor } from "../types/EntityTypes";
+import { motion } from "framer-motion";
+import { item } from "../lib/framerMotion";
 
 type vendedorCardProps = {
   vendedor: vendedor;
@@ -9,7 +11,11 @@ type vendedorCardProps = {
 
 export function VendedorCard(props: vendedorCardProps) {
   return (
-    <div className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md">
+    <motion.div
+      className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md"
+      layout
+      variants={item}
+    >
       <div className="flex flex-col gap-4 ">
         <p className="text-lg font-bold text-slate-900">
           {props.vendedor.nome}
@@ -27,6 +33,6 @@ export function VendedorCard(props: vendedorCardProps) {
           entity="vendedor"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

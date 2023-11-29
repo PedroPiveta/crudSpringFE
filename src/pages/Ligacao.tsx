@@ -3,6 +3,8 @@ import { LigacaoCard } from "../components/LigacaoCard";
 import { api } from "../lib/axios";
 import { CreateEntityDialog } from "../components/CreateEntityDialog";
 import { ligacao } from "../types/EntityTypes";
+import { AnimatePresence, motion } from "framer-motion";
+import { container } from "../lib/framerMotion";
 
 export function Ligacao() {
   const [ligacoes, setLigacoes] = useState([]);
@@ -78,19 +80,28 @@ export function Ligacao() {
           onChange={handleChange}
         />
       </CreateEntityDialog>
-      <div className="flex flex-wrap gap-6 items-center">
-        {ligacoes.length > 0 ? (
-          ligacoes.map((ligacao: ligacao) => (
-            <LigacaoCard
-              key={ligacao.id}
-              ligacao={ligacao}
-              handleGet={getLigacoes}
-            />
-          ))
-        ) : (
-          <p>Nenhuma ligação cadastrada</p>
+      <AnimatePresence mode="popLayout">
+        {ligacoes.length && (
+          <motion.div
+            className="flex flex-wrap gap-6 items-center"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
+            {ligacoes.length > 0 ? (
+              ligacoes.map((ligacao: ligacao) => (
+                <LigacaoCard
+                  key={ligacao.id}
+                  ligacao={ligacao}
+                  handleGet={getLigacoes}
+                />
+              ))
+            ) : (
+              <p>Nenhuma ligação cadastrada</p>
+            )}
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </main>
   );
 }

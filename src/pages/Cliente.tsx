@@ -4,6 +4,7 @@ import { api } from "../lib/axios";
 import { ClienteCard } from "../components/ClienteCard";
 import { cliente } from "../types/EntityTypes";
 import { motion, AnimatePresence } from "framer-motion";
+import { container } from "../lib/framerMotion";
 
 export function Cliente() {
   const [clientes, setClientes] = useState<cliente[] | []>([]);
@@ -89,21 +90,28 @@ export function Cliente() {
           onChange={handleChange}
         />
       </CreateEntityDialog>
-      <motion.div className="flex flex-wrap gap-6 items-center transition-all">
-        <AnimatePresence mode="popLayout">
-          {clientes.length > 0 ? (
-            clientes?.map((cliente: cliente) => (
-              <ClienteCard
-                key={cliente.id}
-                cliente={cliente}
-                handleGet={getClientes}
-              />
-            ))
-          ) : (
-            <p>Nenhum cliente cadastrado</p>
-          )}
-        </AnimatePresence>
-      </motion.div>
+      <AnimatePresence mode="popLayout">
+        {clientes.length && (
+          <motion.div
+            className="flex flex-wrap gap-6 items-center transition-all"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
+            {clientes.length ? (
+              clientes?.map((cliente: cliente) => (
+                <ClienteCard
+                  key={cliente.id}
+                  cliente={cliente}
+                  handleGet={getClientes}
+                />
+              ))
+            ) : (
+              <p>Nenhum cliente cadastrado</p>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

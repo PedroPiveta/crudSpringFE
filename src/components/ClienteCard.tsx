@@ -1,3 +1,4 @@
+import { item } from "../lib/framerMotion";
 import { cliente } from "../types/EntityTypes";
 import { DeleteEntityDialog } from "./DeleteEntityDialog";
 import { EditEntityForm } from "./EditEntityForm";
@@ -13,10 +14,7 @@ export function ClienteCard(props: clienteCardProps) {
     <motion.div
       className="flex justify-between w-[30%] p-6 bg-white rounded-lg shadow-md"
       layout
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0 }}
-      transition={{ duration: 0.25 }}
+      variants={item}
     >
       <div className="flex flex-col gap-4 ">
         <p className="text-lg font-bold text-slate-900">{props.cliente.nome}</p>

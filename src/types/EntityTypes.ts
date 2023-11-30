@@ -17,7 +17,7 @@ export type ligacao = {
     id: number;
     duracao: number;
     descricao: string;
-    horario: Date;
+    horario: string;
     cliente?: cliente;
     vendedor?: vendedor;
 }

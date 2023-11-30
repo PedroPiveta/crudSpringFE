@@ -72,16 +72,6 @@ export function Vendedor() {
           type="email"
           onChange={handleChange}
         />
-        <label className="mb-1" htmlFor="senha">
-          Senha
-        </label>
-        <input
-          className="shadow-md rounded-sm mb-2 p-1 outline-purple-400 transition"
-          name="senha"
-          id="senha"
-          type="password"
-          onChange={handleChange}
-        />
         <label className="mb-1" htmlFor="meta">
           Meta de ligações
         </label>
